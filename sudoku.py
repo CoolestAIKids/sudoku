@@ -15,6 +15,8 @@ Authors:
 
 import argparse
 
+from board import Board
+
 def makeFile() -> None:
     """ Creates a file with the solution.
 
@@ -46,7 +48,8 @@ def main() -> None:
             line = list(map(int, line.strip().split()))
             input.append(line)
 
-    print(input)
+    initial = Board(input)
+    print(initial)
 
 
 if __name__ == '__main__':
