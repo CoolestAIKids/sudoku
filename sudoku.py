@@ -50,8 +50,8 @@ def main() -> None:
 
     initial = Board(input)
     print(initial)
-    print(initial.boxes)
-    print("the len of boxes is " + str(len(initial.boxes)))
+
+    print(initial.mrv())
 
 
 if __name__ == '__main__':
