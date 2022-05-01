@@ -127,3 +127,30 @@ class Board:
                     continue
                 if self.board[i][j] != 0:
                     neighbors += 1
+
+    def assign(self, cell) -> None:
+        row = cell[0]
+        col = cell[1]
+        assignment = self.boxes[cell[0]][cell[1]].pop(0)
+        self.board[cell[0]] [cell[1]] = assignment
+        self.boxes[cell[0]][cell[1]] = None
+
+        for i, j in range(9):
+            if i == row:
+                continue
+            if j == col:
+                continue
+            if assignment in self.boxes[i][col]:
+                self.boxes[i][col].remove(assignment)
+
+            if assignment in self.boxes[row][j]:
+                self.boxes[row][j].remove(assignment)
+
+        box_row, box_col = row // 3 * 3, col // 3 * 3
+        for i in range(box_row, box_row + 3):
+            for j in range(box_col, box_col + 3):
+                if i == row and j == col:
+                    continue
+                if assignment in self.boxes[i][j]:
+                    self.boxes[i][j].remove(assignment)
+
