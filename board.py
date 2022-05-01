@@ -105,7 +105,7 @@ class Board:
         maxNeighborsCells = []
         maxNeighbors = 0
         for cell in cells: 
-            numNeighbors = self.neighbors(cell)
+            numNeighbors = 21-len(self.neighbors(cell)) #number of unassigned neighbors
 
             if numNeighbors > maxNeighbors:
                 maxNeighbors = numNeighbors
@@ -118,37 +118,6 @@ class Board:
         return maxNeighborsCells
 
 
-    def neighbors(self, cell) -> int:
-        """ Counts neighbours for each cell
-
-        Args:
-            Lorem
-
-        Returns:
-            Lorem
-        """
-        row = cell[0]
-        col = cell[1]
-        neighbors = 0
-
-        for i, j in range(9):
-            if i == row:
-                continue
-            if j == col:
-                continue
-            if self.board[i][col] != 0:
-                neighbors += 1
-            if self.board[row][j] != 0:
-                neighbors += 1
-
-        box_row, box_col = row //3  * 3, col //3  * 3
-        for i in range(box_row, box_row + 3):
-            for j in range(box_col, box_col + 3):
-                if i == row and j == col:
-                    continue
-                if self.board[i][j] != 0:
-                    neighbors += 1
-        return neighbors
 
     def assign(self, cell, assignment) -> None:
         row = cell[0]
