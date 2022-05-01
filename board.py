@@ -33,6 +33,27 @@ class Board:
             self.boxes.append(block[:][:])
             block = []
 
+    def getNeighbors(self, cell):
+        neighbors = []
+        row = cell[0]
+        col = cell[1]
+
+        for i in range(9):
+            if self.board[i][col] != 0:
+                neighbors.append(self.board[i][col])
+            if self.board[row][i] != 0:
+                neighbors.append(self.board[row][i])
+
+
+        box_row, box_col = row //3  * 3, col //3  * 3
+        for i in range(box_row, box_row + 3):
+            for j in range(box_col, box_col + 3):
+                if i == row and j == col:
+                    continue
+                if self.board[i][j] != 0:
+                    neighbors.append(self.board[i][j])
+
+        return neighbors
 
     def __str__(self):
         """ Print method mainly for debugging purposes.
@@ -99,7 +120,7 @@ class Board:
 
     def neighbors(self, cell) -> int:
         """ Counts neighbours for each cell
-        
+
         Args:
             Lorem
 
@@ -119,7 +140,7 @@ class Board:
                 neighbors += 1
             if self.board[row][j] != 0:
                 neighbors += 1
-            
+
         box_row, box_col = row //3  * 3, col //3  * 3
         for i in range(box_row, box_row + 3):
             for j in range(box_col, box_col + 3):
@@ -127,19 +148,15 @@ class Board:
                     continue
                 if self.board[i][j] != 0:
                     neighbors += 1
+        return neighbors
 
-    def assign(self, cell) -> None:
+    def assign(self, cell, assignment) -> None:
         row = cell[0]
         col = cell[1]
-        assignment = self.boxes[cell[0]][cell[1]].pop(0)
         self.board[cell[0]] [cell[1]] = assignment
         self.boxes[cell[0]][cell[1]] = None
 
         for i, j in range(9):
-            if i == row:
-                continue
-            if j == col:
-                continue
             if assignment in self.boxes[i][col]:
                 self.boxes[i][col].remove(assignment)
 
@@ -149,8 +166,6 @@ class Board:
         box_row, box_col = row // 3 * 3, col // 3 * 3
         for i in range(box_row, box_row + 3):
             for j in range(box_col, box_col + 3):
-                if i == row and j == col:
-                    continue
                 if assignment in self.boxes[i][j]:
                     self.boxes[i][j].remove(assignment)
 

@@ -30,8 +30,18 @@ def makeFile() -> None:
     pass
 
 
-def backTrack(board) -> Board:
-    pass
+def backTrack(board):
+    heur = board.mrv()
+    if len(heur) > 1:
+        heur = board.degree(heur)
+
+    cell = heur[0]
+    row = cell[0]
+    col = cell[1]
+    for value in board.boxes[row][col]:
+        board.assign(cell,value)
+        backTrack(board)
+
 
 
 
