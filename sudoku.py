@@ -37,12 +37,13 @@ def makeFile(name : str, board : Board) -> None:
 
 def backTrack(board):
     heur = board.mrv()
-    if not heur:
-        return board
 
     if len(heur) > 1:
         heur = board.degree(heur)
-
+    
+    if not heur:
+        return board
+    
     cell = heur[0]
     row = cell[0]
     col = cell[1]
@@ -50,8 +51,8 @@ def backTrack(board):
         newBoard = deepcopy(board)
         if(newBoard.assign(cell, value)):
             result = backTrack(newBoard)
-        if result is not False:
-            return result
+            if result is not False:
+                return result
     return False
 
 

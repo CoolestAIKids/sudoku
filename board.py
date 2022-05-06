@@ -93,7 +93,7 @@ class Board:
         return returnList
 
 
-    def degree(self, cells) -> tuple[int]:
+    def degree(self, cells) -> list[tuple[int]]:
         """ Calculates the degree heuristic.
 
         Args:
@@ -118,11 +118,7 @@ class Board:
         return maxNeighborsCells
 
 
-
     def assign(self, cell, assignment) -> bool:
-
-
-
         neighbors = self.getNeighbors(cell)
 
         if (assignment in neighbors):
@@ -138,16 +134,24 @@ class Board:
         row = cell[0]
         col = cell[1]
 
-        for i, j in range(9):
+        for i in range(9):
+            if self.boxes[i][col] is None:
+                continue
+
             if assignment in self.boxes[i][col]:
                 self.boxes[i][col].remove(assignment)
 
-            if assignment in self.boxes[row][j]:
-                self.boxes[row][j].remove(assignment)
+            if self.boxes[row][i] is None:
+                continue
+
+            if assignment in self.boxes[row][i]:
+                self.boxes[row][i].remove(assignment)
 
         box_row, box_col = row // 3 * 3, col // 3 * 3
         for i in range(box_row, box_row + 3):
             for j in range(box_col, box_col + 3):
+                if self.boxes[i][j] is None:
+                    continue
                 if assignment in self.boxes[i][j]:
                     self.boxes[i][j].remove(assignment)
 
