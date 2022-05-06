@@ -18,7 +18,7 @@ from copy import deepcopy
 
 from board import Board
 
-def makeFile(name : str) -> None:
+def makeFile(name : str, board : Board) -> None:
     """ Creates a file with the solution.
 
     Args:
@@ -28,8 +28,11 @@ def makeFile(name : str) -> None:
         None.
         Just creates a file with the solution.
     """
-    output = name.lower().replace('input', 'output')
-    pass
+    filename = name.lower().replace('input', 'output')
+
+    with open(filename, 'w') as f:
+        f.write(board.__str__())
+        f.write("\n")
 
 
 def backTrack(board):
@@ -76,11 +79,10 @@ def main() -> None:
             input.append(line)
 
     initial = Board(input)
-    print(initial)
+    
+    final = backTrack(initial)
 
-    print(initial.mrv())
-
-    makeFile(cmdline.filename)
+    makeFile(cmdline.filename, final)
 
 
 if __name__ == "__main__":
