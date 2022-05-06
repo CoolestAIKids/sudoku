@@ -17,7 +17,7 @@ import argparse
 
 from board import Board
 
-def makeFile() -> None:
+def makeFile(name : str) -> None:
     """ Creates a file with the solution.
 
     Args:
@@ -27,6 +27,7 @@ def makeFile() -> None:
         None.
         Just creates a file with the solution.
     """
+    output = name.lower().replace('input', 'output')
     pass
 
 
@@ -69,6 +70,8 @@ def main() -> None:
 
     print(initial.mrv())
 
+    makeFile(cmdline.filename)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
