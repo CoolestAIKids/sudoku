@@ -45,8 +45,12 @@ def backTrack(board):
     col = cell[1]
     for value in board.boxes[row][col]:
         newBoard = deepcopy(board)
-        newBoard.assign(cell, value)
-        backTrack(newBoard)
+        if(newBoard.assign(cell, value)):
+            result = backTrack(newBoard)
+        if result is not False:
+            return result
+    return False
+
 
 
 
