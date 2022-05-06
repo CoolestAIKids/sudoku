@@ -14,6 +14,7 @@ Authors:
 """
 
 import argparse
+from copy import deepcopy
 
 from board import Board
 
@@ -33,6 +34,9 @@ def makeFile(name : str) -> None:
 
 def backTrack(board):
     heur = board.mrv()
+    if not heur:
+        return board
+
     if len(heur) > 1:
         heur = board.degree(heur)
 
@@ -40,8 +44,10 @@ def backTrack(board):
     row = cell[0]
     col = cell[1]
     for value in board.boxes[row][col]:
-        board.assign(cell,value)
-        backTrack(board)
+        newBoard = deepcopy(board)
+        newBoard.assign(cell, value)
+        backTrack(newBoard)
+
 
 
 

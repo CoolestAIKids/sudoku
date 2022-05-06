@@ -105,7 +105,7 @@ class Board:
         maxNeighborsCells = []
         maxNeighbors = 0
         for cell in cells: 
-            numNeighbors = 21-len(self.neighbors(cell)) #number of unassigned neighbors
+            numNeighbors = 21-len(self.getNeighbors(cell)) #number of unassigned neighbors
 
             if numNeighbors > maxNeighbors:
                 maxNeighbors = numNeighbors
@@ -119,11 +119,24 @@ class Board:
 
 
 
-    def assign(self, cell, assignment) -> None:
+    def assign(self, cell, assignment) -> bool:
+
+
+
+        neighbors = self.getNeighbors(cell)
+
+        if (assignment in neighbors):
+            return False
+        else:
+            self.board[cell[0]][cell[1]] = assignment
+            self.boxes[cell[0]][cell[1]] = None
+            self.purge(assignment, cell)
+            return True
+
+
+    def purge(self, assignment, cell) -> None:
         row = cell[0]
         col = cell[1]
-        self.board[cell[0]] [cell[1]] = assignment
-        self.boxes[cell[0]][cell[1]] = None
 
         for i, j in range(9):
             if assignment in self.boxes[i][col]:
