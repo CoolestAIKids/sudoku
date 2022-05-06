@@ -138,9 +138,10 @@ class Board:
                     a bool indicating wether or not the assignment was consistent with sudoku rules
         """
         neighbors = self.getNeighbors(cell)
-
+        #If a neighbor already has the same assignment, then assignment is not consisten
         if (assignment in neighbors):
             return False
+        #Put the assignment in the cell and purge all neighbors
         else:
             self.board[cell[0]][cell[1]] = assignment
             self.boxes[cell[0]][cell[1]] = None
@@ -160,19 +161,21 @@ class Board:
         col = cell[1]
 
         for i in range(9):
+            #If cell is already assigned, no need to purge
             if self.boxes[i][col] is None:
                 continue
-
+            #if assignment is in neighbor, remove it
             if assignment in self.boxes[i][col]:
                 self.boxes[i][col].remove(assignment)
-
+            #If cell is already assigned, no need to purge
             if self.boxes[row][i] is None:
                 continue
-
+            # if assignment is in neighbor, remove it
             if assignment in self.boxes[row][i]:
                 self.boxes[row][i].remove(assignment)
 
         box_row, box_col = row // 3 * 3, col // 3 * 3
+        #Purging the neighbors from the block
         for i in range(box_row, box_row + 3):
             for j in range(box_col, box_col + 3):
                 if self.boxes[i][j] is None:
