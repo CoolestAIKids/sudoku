@@ -48,7 +48,7 @@ class Board:
         box_row, box_col = row //3  * 3, col //3  * 3
         for i in range(box_row, box_row + 3):
             for j in range(box_col, box_col + 3):
-                if i == row and j == col:
+                if i == row or j == col:
                     continue
                 if self.board[i][j] != 0:
                     neighbors.append(self.board[i][j])
@@ -105,8 +105,7 @@ class Board:
         maxNeighborsCells = []
         maxNeighbors = 0
         for cell in cells: 
-            numNeighbors = 21-len(self.getNeighbors(cell)) #number of unassigned neighbors
-
+            numNeighbors = 20 - len(self.getNeighbors(cell)) #number of unassigned neighbors
             if numNeighbors > maxNeighbors:
                 maxNeighbors = numNeighbors
                 maxNeighborsCells = [cell]

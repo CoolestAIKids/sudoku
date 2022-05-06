@@ -32,17 +32,17 @@ def makeFile(name : str, board : Board) -> None:
 
     with open(filename, 'w') as f:
         f.write(board.__str__())
-        f.write("\n")
+
 
 
 def backTrack(board):
     heur = board.mrv()
 
-    if len(heur) > 1:
-        heur = board.degree(heur)
-    
     if not heur:
         return board
+
+    if len(heur) > 1:
+        heur = board.degree(heur)
     
     cell = heur[0]
     row = cell[0]
@@ -54,11 +54,6 @@ def backTrack(board):
             if result is not False:
                 return result
     return False
-
-
-
-
-
 
 
 def main() -> None:
