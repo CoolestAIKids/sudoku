@@ -46,21 +46,21 @@ def backTrack(board : Board) -> Board:
         board (Board): The board to solve.
 
     Returns:
-        Board: The solved board.
+        Board : The solved board.
     """
     # Get MRV
-    heur = board.mrv()
+    heuristic = board.mrv()
 
     # If MRV is empty, board is solved
-    if not heur:
+    if not heuristic:
         return board
 
     # If MRV is more than one cell, call degree
-    if len(heur) > 1:
-        heur = board.degree(heur)
+    if len(heuristic) > 1:
+        heuristic = board.degree(heuristic)
     
     # Choose the first from the heuristic
-    cell = heur[0]
+    cell = heuristic[0]
 
     row = cell[0]
     col = cell[1]
